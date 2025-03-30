@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>::
+<head>
     <title>Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>About Us</h1>
-    <p>This is the about page.</p>
+<section class="main">
+  <img src="{{ url_for('static', filename='Assets/background.png') }}" alt="">
+  <div class='Home'>
+  <h3>BookLet</h3>
+  <p>Discover Your Next Favorite Book</p>
+  <button class='btn'>Generate</button>
+    </div>
+</section>
 </body>
 </html>
