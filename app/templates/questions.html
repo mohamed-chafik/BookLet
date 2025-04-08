@@ -7,17 +7,53 @@
 <body>
 <section class="Serveys">
   <div class="head">
-    <li href='#'>BookLet</li>
+    <h1>BookLet</h1>
   </div>
   <div class='bar'>
 
-<div class="input-container">
-  <input required="" placeholder="Email Address" type="email">
-  <button class="invite-btn" type="button">
-    Invite
+
+<!-- From Uiverse.io by mpody11 --> 
+<div class="messageBox">
+
+  <input id="messageInput" type="text" placeholder="Message..." required="" />
+  <button id="sendButton" onclick="handleclick()">
+    <svg viewBox="0 0 664 663" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+        fill="none"
+      ></path>
+      <path
+        d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+        stroke="#6c6c6c"
+        stroke-width="33.67"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
   </button>
- 
+</div>
+<div class="fetching_topics" id="fetching_topics"> 
+  
 </div>
   </div></section>
+  <script>
+    function handleclick(){
+
+            const newDiv = document.createElement('div');
+            newDiv.className = 'topic';
+            const paragraph = document.createElement("input")
+            newDiv.appendChild(paragraph);
+            paragraph.id = "para"
+            paragraph.type = 'radio';
+
+            const label = document.createElement('label')
+            label.className = 'label'
+            newDiv.appendChild(label)
+            label.htmlFor = 'para';
+            label.textContent = 'para';
+      
+            document.getElementById('fetching_topics').appendChild(newDiv);
+    }  
+  </script>
 </body>
 </html>
