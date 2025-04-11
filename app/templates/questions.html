@@ -50,7 +50,9 @@
             label.className = 'label'
             newDiv.appendChild(label)
             label.htmlFor = 'para';
-            label.textContent = 'para';
+            choice = document.getElementById('messageInput').value
+            label.textContent = choice;
+            document.getElementById('messageInput').value = ""
       
             document.getElementById('fetching_topics').appendChild(newDiv);
     }  
