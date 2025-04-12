@@ -50,11 +50,22 @@
             label.className = 'label'
             newDiv.appendChild(label)
             label.htmlFor = 'para';
-            choice = document.getElementById('messageInput').value
+            const choice = document.getElementById('messageInput').value
             label.textContent = choice;
-            document.getElementById('messageInput').value = ""
-      
             document.getElementById('fetching_topics').appendChild(newDiv);
+const inputValue = document.getElementById('messageInput').value;
+fetch('/process', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json', // Sending JSON
+    },
+    body: JSON.stringify({ user_input: inputValue }) // Data as JSON
+})
+.then(response => response.json())
+
+
+    document.getElementById('messageInput').value = ""
+
     }  
   </script>
 </body>

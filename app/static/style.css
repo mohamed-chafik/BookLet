@@ -193,7 +193,9 @@ hidden;
 }
 
 .topic label {
-display: inline-block;
+display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 10px 20px;
   cursor: pointer;
   border: 2px solid #fff;
