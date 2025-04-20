@@ -34,7 +34,7 @@ def process():
 def fetch():
     # Get comma-separated book titles from URL like:
     # /fetch?book_titles=Hobbit,Dune,Pride+and+Prejudice
-    book_titles_str = request.args.get('book_titles', 'Einführung in Python,Hacking for dummies,Discrete Mathematics,Transactions on Engineering Technologies')
+    book_titles_str = request.args.get('book_titles', 'Transactions on Engineering Technologies')
     book_titles = [title.strip() for title in book_titles_str.split(',') if title.strip()]
     
     if not book_titles:
@@ -46,7 +46,7 @@ def fetch():
         search_url = f"https://openlibrary.org/search.json?q={requests.utils.quote(title)}"
         book_data = requests.get(search_url).json()
         if book_data.get("docs"):
-            book_subjects = book_data["docs"][0].get("subject", ['Computer science','Mathematics'])
+            book_subjects = book_data["docs"][0].get("subject", ['Computer science'])
             subjects.update(book_subjects[:3])  # Take top 3 subjects per book
     
     # Step 2: Find books that share the most subjects
