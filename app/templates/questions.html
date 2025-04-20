@@ -36,6 +36,16 @@
   
 </div>
   </div></section>
+<div class="result">
+          {% for card in books %}
+            <div class="card">
+              <img src='https://covers.openlibrary.org/b/id/{{ card[1] }}-M.jpg' class="image">
+              <h3>{{card[0]}}</h3>
+
+            </div>
+        {% endfor %}
+    </div>
+
   <script>
     function handleclick(){
 
