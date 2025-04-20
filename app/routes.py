@@ -32,31 +32,54 @@ def process():
 
 @app.route('/fetch', methods=['GET'])
 def fetch():
-    # Get comma-separated book titles from URL like:
-    # /fetch?book_titles=Hobbit,Dune,Pride+and+Prejudice
-    book_titles_str = request.args.get('book_titles', 'Transactions on Engineering Technologies')
-    book_titles = [title.strip() for title in book_titles_str.split(',') if title.strip()]
+    # Get single book title from URL like: /fetch?title=Hobbit
+    book_title = request.args.get('title', 'My_inventions').strip()
     
-    if not book_titles:
-        return jsonify({"error": "Please provide 'book_titles' parameter (comma-separated)"}), 400
+    if not book_title:
+        return jsonify({"error": "Please provide 'title' parameter"}), 400
     
-    subjects = set()
-    # Step 1: Get genres/subjects of all input books
-    for title in book_titles:
-        search_url = f"https://openlibrary.org/search.json?q={requests.utils.quote(title)}"
-        book_data = requests.get(search_url).json()
-        if book_data.get("docs"):
-            book_subjects = book_data["docs"][0].get("subject", ['Computer science'])
-            subjects.update(book_subjects[:3])  # Take top 3 subjects per book
+    # Step 1: Find the work ID for the given book title
+    search_url = f"https://openlibrary.org/search.json?q={requests.utils.quote(book_title)}"
+    search_response = requests.get(search_url)
     
-    # Step 2: Find books that share the most subjects
+    if search_response.status_code != 200:
+        return jsonify({"error": "Failed to search for book"}), 500
+    
+    search_data = search_response.json()
+    if not search_data.get("docs"):
+        return jsonify({"error": "Book not found"}), 404
+    
+    # Get the first matching work
+    work_key = search_data["docs"][0].get("key")
+    if not work_key:
+        return jsonify({"error": "No work key found for this book"}), 404
+    
+    # Step 2: Get the "similar books" from the work page
+    work_url = f"https://openlibrary.org{work_key}.json"
+    work_response = requests.get(work_url)
+    
+    if work_response.status_code != 200:
+        return jsonify({"error": "Failed to fetch work details"}), 500
+    
+    work_data = work_response.json()
+    
+    # Try to get recommendations from different possible fields
     recommendations = []
-    for subject in subjects:
-        rec_url = f"https://openlibrary.org/subjects/{subject.lower()}.json?limit=5"
-        rec_data = requests.get(rec_url).json()
-        recommendations.extend([work["title"] for work in rec_data.get("works", [])])
+    cover_ids = []
+    # Option 3: Fallback to subject-based recommendations if no direct relations found
+    if not recommendations and work_data.get("subjects"):
+        for subject in work_data["subjects"][:3]:  # Take top 3 subjects
+            subject_url = f"https://openlibrary.org/subjects/{subject.lower().replace(' ', '_')}.json?limit=5"
+            subject_response = requests.get(subject_url)
+            if subject_response.status_code == 200:
+                subject_data = subject_response.json()
+                recommendations.extend([work["title"] for work in subject_data.get("works", [])])
+                cover_ids.extend([work["cover_id"] for work in subject_data.get('works', [])])
+    # Remove duplicates and the original book
+    unique_recs = list({rec for rec in recommendations if rec.lower() != book_title.lower()})
     
-    # Remove duplicates and input books
-
-    unique_recs = list(set(recommendations) - set(book_titles))[:10]  # Top 10 unique recs
-    return jsonify({"recommendations": unique_recs})
+    return jsonify({
+        "original_book": book_title,
+        "recommendations": unique_recs[:8],  
+        "covers": cover_ids[:8]
+    })
