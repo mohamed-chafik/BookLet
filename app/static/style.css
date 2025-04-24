@@ -239,3 +239,8 @@ display: flex;
     font-family: "Noto Sans KR", sans-serif;
     font-size : 13px;
 }
+form{
+  display: flex;
+  width: 101%;
+  height: 100%;
+}

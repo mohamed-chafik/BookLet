@@ -12,11 +12,10 @@
   <div class='bar'>
 
 
-<!-- From Uiverse.io by mpody11 --> 
 <div class="messageBox">
-
-  <input id="messageInput" type="text" placeholder="Message..." required="" />
-  <button id="sendButton" onclick="handleclick()">
+  <form mathod="POST">
+  <input id="messageInput" name='book' type="text" placeholder="Message..." required="" />
+  <button id="sendButton" onclick="handleclick()" type='submit'>
     <svg viewBox="0 0 664 663" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
@@ -31,6 +30,7 @@
       ></path>
     </svg>
   </button>
+  </form>
 </div>
 <div class="fetching_topics" id="fetching_topics"> 
   
@@ -63,15 +63,6 @@
             const choice = document.getElementById('messageInput').value
             label.textContent = choice;
             document.getElementById('fetching_topics').appendChild(newDiv);
-const inputValue = document.getElementById('messageInput').value;
-fetch('/process', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json', // Sending JSON
-    },
-    body: JSON.stringify({ user_input: inputValue }) // Data as JSON
-})
-.then(response => response.json())
 
 
     document.getElementById('messageInput').value = ""

@@ -13,28 +13,14 @@ def home():
 def about():
     return render_template("about.html", title="About Us")
 
-@app.route('/process', methods=['POST'])
-def process():
-    # Get JSON data from the request
-    data = request.get_json()  # Parse incoming JSON
-    user_input = data.get('user_input')  # Extract the value
-    topics.append(user_input)
-    print(topics)
 
-   
 
-    # Return a JSON response
-    return jsonify({
-        'status': 'success',
-        'message': 'Data received!',
-        'input': user_input
-    })
-
-@app.route('/fetch', methods=['GET'])
+@app.route('/fetch', methods=['GET', 'POST'])
 def fetch():
-    # Get single book title from URL like: /fetch?title=Hobbit
-    book_title = request.args.get('title', 'My_inventions').strip()
-    
+
+    book = request.form.get('book')    # Get single book title from URL like: /fetch?title=Hobbit
+    book_title = request.args.get('title', book).strip()
+    print(book_title) 
     if not book_title:
         return jsonify({"error": "Please provide 'title' parameter"}), 400
     
