@@ -30,13 +30,13 @@ Built with **Flask**.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/mohamed-chafik/booket.git
+git clone https://github.com/mohamed-chafik/booklet.git
 ```
 
 2. Navigate into the project directory:
 
 ```bash
-cd booket
+cd booklet
 ```
 
 3. Install the dependencies:
