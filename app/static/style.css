@@ -238,9 +238,31 @@ display: flex;
   height: fit-content;
     font-family: "Noto Sans KR", sans-serif;
     font-size : 13px;
+    color: #000;
+    text-decoration: none;
 }
 form{
   display: flex;
   width: 101%;
   height: 100%;
 }
+/* From Uiverse.io by gksckt */ 
+.sub {
+ background-color: #ffd93e;
+ border-radius: 4px;
+ color: #000;
+ cursor: pointer;
+ padding: 15px 30px;
+ font-size: 18px;
+ font-weight: bold;
+ letter-spacing: 1px;
+ border: none;
+ height: fit-content;
+ margin-top: 25px;
+}
+
+.sub:hover {
+ background:#dcc66c ;
+ color: #000;
+ }
+

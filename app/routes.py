@@ -58,7 +58,7 @@ def fetch():
             subject_response = requests.get(subject_url)
             if subject_response.status_code == 200:
                 subject_data = subject_response.json()
-                recommendations.extend([(work["title"], work["cover_id"]) for work in subject_data.get("works", [])])
+                recommendations.extend([(work["title"], work["cover_id"],work["key"]) for work in subject_data.get("works", [])])
 
     unique_data = tuple(list(item) for item in {tuple(item) for item in recommendations})
     return render_template('questions.html', books=unique_data)

@@ -35,13 +35,15 @@
 <div class="fetching_topics" id="fetching_topics"> 
   
 </div>
+<button onclick='submit()' class='sub'> Button</button>
   </div></section>
 <div class="result">
           {% for card in books %}
             <div class="card">
+              <a href='https://openlibrary.org{{ card[2] }}'>
               <img src='https://covers.openlibrary.org/b/id/{{ card[1] }}-M.jpg' class="image">
               <h3>{{card[0]}}</h3>
-
+</a>
             </div>
         {% endfor %}
     </div>
@@ -69,7 +71,7 @@
 
     document.getElementById('messageInput').value = ""
     console.log(books)
-      submit()
+     
 
        } 
       function submit(){
