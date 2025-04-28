@@ -13,7 +13,7 @@
 
 
 <div class="messageBox">
-  <form mathod="POST">
+
   <input id="messageInput" name='book' type="text" placeholder="Message..." required="" />
   <button id="sendButton" onclick="handleclick()" type='submit'>
     <svg viewBox="0 0 664 663" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +30,7 @@
       ></path>
     </svg>
   </button>
-  </form>
+
 </div>
 <div class="fetching_topics" id="fetching_topics"> 
   
@@ -47,8 +47,9 @@
     </div>
 
   <script>
-    function handleclick(){
 
+      const books = []
+    function handleclick(){
             const newDiv = document.createElement('div');
             newDiv.className = 'topic';
             const paragraph = document.createElement("input")
@@ -63,11 +64,20 @@
             const choice = document.getElementById('messageInput').value
             label.textContent = choice;
             document.getElementById('fetching_topics').appendChild(newDiv);
+     books.push(choice)
 
 
     document.getElementById('messageInput').value = ""
+    console.log(books)
+      submit()
 
-    }  
+       } 
+      function submit(){
+
+
+        window.location.href = `/fetch?data=${encodeURIComponent(books.toString())}`;
+      }
+
   </script>
 </body>
 </html>

@@ -17,9 +17,8 @@ def about():
 
 @app.route('/fetch', methods=['GET', 'POST'])
 def fetch():
-
-    book = request.form.get('book')    # Get single book title from URL like: /fetch?title=Hobbit
-    book_title = request.args.get('title', book).strip()
+    data = request.args.get('data')    # Get single book title from URL like: /fetch?title=Hobbit
+    book_title = request.args.get('title', data).strip()
     print(book_title) 
     if not book_title:
         return jsonify({"error": "Please provide 'title' parameter"}), 400
