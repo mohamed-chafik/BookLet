@@ -1,7 +1,7 @@
 # Book Recommendation Engine
 
 
-**[BookLet]([https://greenhaven1.netlify.app](https://book-let-w2nf.vercel.app/))** is a Flask web application that fetches your favorite books and generates personalized recommendations using the Open Library API and a custom recommendation algorithm.
+**[BookLet](https://book-let-w2nf.vercel.app/)** is a Flask web application that fetches your favorite books and generates personalized recommendations using the Open Library API and a custom recommendation algorithm.
 
 ## Features
 
